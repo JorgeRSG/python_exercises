@@ -39,6 +39,8 @@ print_words() and print_top().
 
 import sys
 
+# Usage python wordcount.py --count [textfile.txt] 
+
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
@@ -81,8 +83,29 @@ def print_words(filename):
     print (k, word_count_dict[k])
 
 
+def print_top(filename):
+  word_count_dict = {}
+  file = open(filename, 'rt')
+  for line in file:
+    words = line.lower()
+    words = words.split()
+    for word in words:
+      if word not in word_count_dict:
+        word_count_dict[word] = 1
+      else:
+        word_count_dict[word] += 1
+  file.close()
+  
+
+# Sort the tuple which contains words, frequency bases on the frequency each word appears
+  ordered = sorted(word_count_dict.items(), key=freq, reverse=True)
+  
+  for word in ordered[:20]:
+    print(word[0], word[1])
 
 
+def freq(word_count_tuple):
+  return word_count_tuple[1]
 
 
 
