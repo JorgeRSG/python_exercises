@@ -66,7 +66,8 @@ def main():
     print ('unknown option: ' + option)
     sys.exit(1)
 
-def print_words(filename):
+
+def get_word_count(filename):
   word_count_dict = {}
   file = open(filename, 'rt')
   for line in file:
@@ -78,25 +79,18 @@ def print_words(filename):
       else:
         word_count_dict[word] += 1
   file.close()
-  
+  return word_count_dict
+
+
+def print_words(filename):
+  word_count_dict = get_word_count(filename)
   for k in sorted(word_count_dict.keys()):
     print (k, word_count_dict[k])
 
 
 def print_top(filename):
-  word_count_dict = {}
-  file = open(filename, 'rt')
-  for line in file:
-    words = line.lower()
-    words = words.split()
-    for word in words:
-      if word not in word_count_dict:
-        word_count_dict[word] = 1
-      else:
-        word_count_dict[word] += 1
-  file.close()
+  word_count_dict = get_word_count(filename)
   
-
 # Sort the tuple which contains words, frequency bases on the frequency each word appears
   ordered = sorted(word_count_dict.items(), key=freq, reverse=True)
   
